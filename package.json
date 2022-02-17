@@ -1,0 +1,21 @@
+{
+  "name": "mrm-preset-beenary",
+  "version": "1.0.0",
+  "description": "Beenary preset for MRM codemods",
+  "author": {
+    "name": "Beata Obrok",
+    "url": "https://github.com/quirk0o"
+  },
+  "homepage": "https://github.com/beenary-js/mrm-preset-beenary",
+  "repository": "beenary-js/mrm-preset-beenary",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
+  "main": "config.json",
+  "files": ["config.json", "*/index.js"],
+  "keywords": ["mrm", "mrm-preset"],
+  "dependencies": {
+    "mrm-core": "^2.1.3"
+  }
+}

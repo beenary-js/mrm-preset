@@ -1,0 +1,23 @@
+{
+  "indent": 2,
+  "prettierOptions": {
+    "semi": false
+  },
+  "prettierOverrides": [
+    {
+      "files": "*.md",
+      "options": {
+        "printWidth": 70,
+        "trailingComma": "none",
+        "arrowParens": "avoid",
+        "proseWrap": "never"
+      }
+    }
+  ],
+  "prettierPattern": "**/*.{js,jsx,ts,tsx,css,less,scss,sass,html,json,md,mdx,yml,yaml,graphql,graphqls}",
+  "readmeFile": "README.md",
+  "licenseFile": "LICENSE.md",
+  "aliases": {
+    "node": ["license", "readme", "editorconfig", "gitignore"]
+  }
+}
