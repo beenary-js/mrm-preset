@@ -17,5 +17,9 @@
   "keywords": ["mrm", "mrm-preset"],
   "dependencies": {
     "mrm-core": "^2.1.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
