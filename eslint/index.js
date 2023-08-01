@@ -152,6 +152,7 @@ const preset = (pkg, name) => {
 module.exports = function task(...args) {
   eslint(...args);
   const eslintrc = json(".eslintrc.json");
+  const pkg = packageJson();
   const isReact = hasPackage(pkg, "react");
   const isTypescript = hasPackage(pkg, "typescript");
 
@@ -159,7 +160,6 @@ module.exports = function task(...args) {
   const plugins = eslintrc.get("plugins") || [];
   const env = eslintrc.get("env") || {};
   const packages = [];
-  const pkg = packageJson();
 
   const rules = {...baseRules}
   const base = preset(pkg, "airbnb");
@@ -195,7 +195,7 @@ module.exports = function task(...args) {
   eslintrc.set("plugins", Array.from(new Set(plugins)));
   eslintrc.set("env", env);
   eslintrc.save();
-  
+
   install(packages);
 };
 
