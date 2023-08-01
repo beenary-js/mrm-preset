@@ -32,6 +32,11 @@ module.exports = function task(...args) {
     presets.push(jest.preset);
   }
 
+  if (presets.includes("prettier")) {
+    presets.splice(presets.indexOf("prettier"), 1);
+    presets.push("prettier");
+  }
+
   eslintrc.set("extends", presets);
   eslintrc.save();
   install(packages);
