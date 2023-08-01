@@ -163,7 +163,7 @@ module.exports = function task(...args) {
 
   const rules = {...baseRules}
   const base = preset(pkg, "airbnb");
-  packages.push(...base.package, ...peerDependencies[base.package]);
+  packages.push(base.package, ...peerDependencies[base.package]);
   presets.push(base.preset);
 
   if (isReact) {
@@ -171,7 +171,7 @@ module.exports = function task(...args) {
   }
   if (isTypescript) {
     const ts = preset(pkg, "airbnb-typescript");
-    packages.push(...ts.package, ...peerDependencies[ts.package]);
+    packages.push(ts.package, ...peerDependencies[ts.package]);
     presets.push(ts.preset);
     Object.assign(rules, typescriptBaseRules)
   }
