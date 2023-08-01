@@ -49,8 +49,8 @@ const baseRules = {
     {
       exceptAfterSingleLine: true,
     },
-  ]
-}
+  ],
+};
 
 const reactRules = {
   "react/jsx-props-no-spreading": "off",
@@ -86,7 +86,7 @@ const reactRules = {
       depth: 25,
     },
   ],
-}
+};
 
 const typescriptBaseRules = {
   "no-unused-vars": "off",
@@ -101,10 +101,10 @@ const typescriptBaseRules = {
   "@typescript-eslint/lines-between-class-members": [
     "warn",
     {
-      "exceptAfterSingleLine": true
-    }
-  ]
-}
+      exceptAfterSingleLine: true,
+    },
+  ],
+};
 
 const typescriptReactRules = {
   "react/jsx-filename-extension": [
@@ -112,8 +112,8 @@ const typescriptReactRules = {
     {
       extensions: [".tsx"],
     },
-  ]
-}
+  ],
+};
 
 const jestRules = {
   "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
@@ -130,14 +130,27 @@ const jestRules = {
     },
   ],
   "jest/no-done-callback": "error",
-}
+};
 
 const peerDependencies = {
-  'eslint-config-airbnb': ['eslint-plugin-import', 'eslint-plugin-react', 'eslint-plugin-react-hooks', 'eslint-plugin-jsx-a11y'],
-  'eslint-config-airbnb-base': ['eslint-plugin-import'],
-  'eslint-config-airbnb-typescript': ['eslint-plugin-import', '@typescript-eslint/eslint-plugin', '@typescript-eslint/parser'],
-  'eslint-config-airbnb-typescript/base': ['eslint-plugin-import', '@typescript-eslint/eslint-plugin', '@typescript-eslint/parser'],
-}
+  "eslint-config-airbnb": [
+    "eslint-plugin-import",
+    "eslint-plugin-react",
+    "eslint-plugin-react-hooks",
+    "eslint-plugin-jsx-a11y",
+  ],
+  "eslint-config-airbnb-base": ["eslint-plugin-import"],
+  "eslint-config-airbnb-typescript": [
+    "eslint-plugin-import",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+  ],
+  "eslint-config-airbnb-typescript/base": [
+    "eslint-plugin-import",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+  ],
+};
 
 const hasPackage = (package, name) =>
   package.get(`devDependencies.${name}`) || package.get(`dependencies.${name}`);
@@ -161,29 +174,29 @@ module.exports = function task(...args) {
   const env = eslintrc.get("env") || {};
   const packages = [];
 
-  const rules = {...baseRules}
+  const rules = { ...baseRules };
   const base = preset(pkg, "airbnb");
   packages.push(base.package, ...peerDependencies[base.package]);
   presets.push(base.preset);
 
   if (isReact) {
-    Object.assign(rules, reactRules)
+    Object.assign(rules, reactRules);
   }
   if (isTypescript) {
     const ts = preset(pkg, "airbnb-typescript");
     packages.push(ts.package, ...peerDependencies[ts.package]);
     presets.push(ts.preset);
-    Object.assign(rules, typescriptBaseRules)
+    Object.assign(rules, typescriptBaseRules);
   }
   if (isReact && isTypescript) {
-    Object.assign(rules, typescriptReactRules)
+    Object.assign(rules, typescriptReactRules);
   }
   if (hasPackage(pkg, "jest")) {
     packages.push("eslint-plugin-jest", "eslint-plugin-testing-library");
-    presets.push("jest/recommended", "testing-library/react")
+    presets.push("jest/recommended", "testing-library/react");
     plugins.push("jest", "testing-library");
     env["jest/globals"] = true;
-    Object.assign(rules, jestRules)
+    Object.assign(rules, jestRules);
   }
 
   if (presets.includes("prettier")) {
@@ -192,8 +205,13 @@ module.exports = function task(...args) {
   }
 
   eslintrc.set("extends", Array.from(new Set(presets)));
-  eslintrc.set("plugins", Array.from(new Set(plugins)));
-  eslintrc.set("env", env);
+  if (plugins.length > 0) {
+    eslintrc.set("plugins", Array.from(new Set(plugins)));
+  }
+  if (Object.keys(env).length > 0) {
+    eslintrc.set("env", env);
+  }
+  eslintrc.set("rules", rules);
   eslintrc.save();
 
   install(packages);
