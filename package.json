@@ -1,6 +1,6 @@
 {
   "name": "mrm-preset-beenary",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "description": "Beenary preset for MRM codemods",
   "author": {
     "name": "Beata Obrok",
